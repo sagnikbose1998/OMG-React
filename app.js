@@ -3,7 +3,7 @@ const heading = React.createElement(
   {
     id: "heading",
   },
-  "Hello from React"
+  "Hello from React !!"
 );
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(heading);
