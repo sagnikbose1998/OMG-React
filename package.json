@@ -1,0 +1,27 @@
+{
+  "name": "omgreact",
+  "version": "1.0.0",
+  "description": "React Basic Concepts",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sagnikbose1998/OMG-React.git"
+  },
+  "keywords": [
+    "react",
+    "sagnik",
+    "bose"
+  ],
+  "author": "Sagnik Bose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagnikbose1998/OMG-React/issues"
+  },
+  "homepage": "https://github.com/sagnikbose1998/OMG-React#readme",
+  "devDependencies": {
+    "parcel": "^2.10.3"
+  }
+}
