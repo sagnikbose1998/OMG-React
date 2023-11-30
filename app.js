@@ -1,9 +1,12 @@
+import react from "react";
+import reactDom from "react-dom";
+
 const heading = React.createElement(
   "h1",
   {
     id: "heading",
   },
-  "Hello from React!!"
+  "Hello from React!!!"
 );
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(heading);
