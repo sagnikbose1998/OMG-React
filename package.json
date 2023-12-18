@@ -4,7 +4,8 @@
   "description": "React Basic Concepts",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start":"parcel index.html"
   },
   "repository": {
     "type": "git",
