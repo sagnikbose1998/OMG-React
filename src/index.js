@@ -12,13 +12,13 @@ const AppLayout = () => {
       <Header />
       <Body />
     </div>
-  );
+  ); 
 };
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  
     <AppLayout />
-  </React.StrictMode>
+  
 );

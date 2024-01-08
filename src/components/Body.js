@@ -1,38 +1,29 @@
 import RestaurantCard from "./RestaurantCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import resList from "../utils/mockData";
 
 const Body = () => {
-  const [listOfRestaurant, setListOfRestaurant] = React.useState(resList);
-  //   {
-  //     info: {
-  //       id: "10370",
-  //       name: "Pizza Hut",
-  //       cloudinaryImageId: "2b4f62d606d1b2bfba9ba9e5386fabb7",
-  //       locality: "Nicco Park",
-  //       areaName: "Bidhannagar",
-  //       costForTwo: "₹350 for two",
-  //       cuisines: ["Fast Food", "Pizzas"],
-  //       avgRating: 3.7,
-  //     },
-  //   },
-  //   {
-  //     info: {
-  //       id: "10372",
-  //       name: "Dominos Hut",
-  //       cloudinaryImageId: "2b4f62d606d1b2bfba9ba9e5386fabb7",
-  //       locality: "Nicco Park",
-  //       areaName: "Bidhannagar",
-  //       costForTwo: "₹350 for two",
-  //       cuisines: ["Fast Food", "Pizzas"],
-  //       avgRating: 4.8,
-  //     },
-  //   },
-  // ]);
+  const [listOfRestaurant, setListOfRestaurant] = useState([]);
 
-  const [myBoolean, setMyBoolean] = useState(false);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  return (
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5830181&lng=88.4131218&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+
+    console.log(json);
+    setListOfRestaurant(resList);
+  };
+
+  if (listOfRestaurant.length === 0) return <h1>Loading...</h1>;
+
+  return listOfRestaurant.length === 0 ? (
+    <h1>Loading...</h1>
+  ) : (
     <div className="body">
       <div className="filter">
         <button
@@ -43,10 +34,9 @@ const Body = () => {
             );
             console.log(filterListofRes);
             setListOfRestaurant(filterListofRes);
-            setMyBoolean(true);
           }}
         >
-          Top Rated restaurants {myBoolean.toString()}
+          Top Rated restaurants
         </button>
         <div className="res-container">
           {listOfRestaurant.map((restaurant) => (
