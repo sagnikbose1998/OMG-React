@@ -4,6 +4,8 @@ import resList from "../utils/mockData";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
+  const [filterlistOfRestaurant, setFilterListOfRestaurant] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -16,7 +18,13 @@ const Body = () => {
     const json = await data.json();
 
     console.log(json);
-    setListOfRestaurant(resList);
+    // //console.log(
+    //   json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
+    // );
+    //setListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
+    //setFilterListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
+      setListOfRestaurant(resList)
+      setFilterListOfRestaurant(resList)
   };
 
   if (listOfRestaurant.length === 0) return <h1>Loading...</h1>;
@@ -26,6 +34,26 @@ const Body = () => {
   ) : (
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input
+            type="text"
+            className="search-box"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const filteredRes = listOfRestaurant.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText)
+              );
+              setFilterListOfRestaurant(filteredRes);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
@@ -39,7 +67,7 @@ const Body = () => {
           Top Rated restaurants
         </button>
         <div className="res-container">
-          {listOfRestaurant.map((restaurant) => (
+          {filterlistOfRestaurant.map((restaurant) => (
             <RestaurantCard key={restaurant.info.id} resData={restaurant} />
           ))}
         </div>

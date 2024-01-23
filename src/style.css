@@ -46,10 +46,6 @@
     cursor: pointer;
 }
 
-.search{
-    padding: 10px;
-}
-
 .res-logo{
     width: 100%;
 }
@@ -58,3 +54,19 @@
     padding: 10px;
 }
 
+.login{
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.search{
+    margin: 2px;
+    padding: 10px;
+}
+
+
+.search-box{
+    margin: 2px;
+    padding: 4px;
+}
