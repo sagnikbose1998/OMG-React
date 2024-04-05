@@ -4,23 +4,33 @@ import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
-  const onlineStatus=useOnlineStatus()
+  const onlineStatus = useOnlineStatus();
   const [btn, setBtn] = useState(["login"]);
 
   return (
-    <div className="header">
+    <div className="flex justify-between shadow-lg bg-gradient-to-r from-purple-400 via-pink-500 to-red-200 mb-2">
+      {" "}
+      {/* Added bg-gradient-to-r with gradient colors */}
       <div className="logo-container">
-        <img className="logo" src={LOGO_URL} alt="LOGO " />
+        <img className="w-24" src={LOGO_URL} alt="LOGO " />
       </div>
-      <div className="navbar-items">
-        <ul>
-          <li>Online Status :{onlineStatus ? "✅" : "❌"}</li>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to="/contact">Contact Us</Link></li>
-          <li>Cart</li>
+      <div className="flex items-center">
+        <ul className="flex p-4 m-4">
+          <li className="px-4  text-blue-500 hover:text-blue-700">
+            Online Status :{onlineStatus ? "✅" : "❌"}
+          </li>
+          <li className="px-4  text-blue-500 hover:text-blue-700">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="px-4  text-blue-500 hover:text-blue-700">
+            <Link to="/about">About Us</Link>
+          </li>
+          <li className="px-4 text-blue-500 hover:text-blue-700">
+            <Link to="/contact">Contact Us</Link>
+          </li>
+          <li className="px-4  text-blue-500 hover:text-blue-700">Cart</li>
           <button
-            className="login"
+            className="login  text-blue-500 hover:text-blue-700"
             onClick={() => {
               btn === "login" ? setBtn("logout") : setBtn("login");
             }}

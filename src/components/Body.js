@@ -1,6 +1,5 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withCardUpdated} from "./RestaurantCard";
 import React, { useEffect, useState } from "react";
-import resList from "../utils/mockData";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
@@ -8,6 +7,10 @@ const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [filterlistOfRestaurant, setFilterListOfRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+
+  const RestaurantCardUpdate= withCardUpdated(RestaurantCard)
+  //console.log("Body rendered",listOfRestaurant)
 
   useEffect(() => {
     fetchData();
@@ -19,34 +22,40 @@ const Body = () => {
     );
     const json = await data.json();
 
-    console.log(json);
+   // console.log(json);
+  //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
     // //console.log(
     //   json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
     // );
     //setListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
     //setFilterListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
-    setListOfRestaurant(resList);
-    setFilterListOfRestaurant(resList);
+    setListOfRestaurant(
+      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+    setFilterListOfRestaurant(
+      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
   };
 
   const onlineStatus = useOnlineStatus();
-  if (onlineStatus===false) return <h1>OOps! Come back ! You are offline</h1>;
+  if (onlineStatus === false) return <h1>OOps! Come back ! You are offline</h1>;
 
   return listOfRestaurant.length === 0 ? (
     <h1>Loading...</h1>
   ) : (
     <div className="body">
       <div className="filter">
-        <div className="search">
+        <div className=" m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="m-3 border border-solid border-black rounded-md"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-2 py-2 bg-green-100 m-4 rounded-md"
             onClick={() => {
               const filteredRes = listOfRestaurant.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText)
@@ -57,25 +66,18 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filterListofRes = listOfRestaurant.filter(
-              (res) => res.info.avgRating > 4.5
-            );
-            console.log(filterListofRes);
-            setListOfRestaurant(filterListofRes);
-          }}
-        >
-          Top Rated restaurants
-        </button>
-        <div className="res-container">
+
+
+        <div className="flex flex-wrap">
           {filterlistOfRestaurant.map((restaurant) => (
             <Link
               to={"/restaurants/" + restaurant.info.id}
               key={restaurant.info.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {
+                /* restaurant.data.isOpen? <RestaurantCardUpdate resData={restaurant}/>:<RestaurantCard resData={restaurant} /> */
+                <RestaurantCard resData={restaurant} />
+              }
             </Link>
           ))}
         </div>
