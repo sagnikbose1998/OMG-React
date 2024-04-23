@@ -1,20 +1,22 @@
-import RestaurantCard,{withCardUpdated} from "./RestaurantCard";
-import React, { useEffect, useState } from "react";
+import RestaurantCard, { withCardUpdated } from "./RestaurantCard";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [filterlistOfRestaurant, setFilterListOfRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-
-  const RestaurantCardUpdate= withCardUpdated(RestaurantCard)
+  const RestaurantCardUpdate = withCardUpdated(RestaurantCard);
   //console.log("Body rendered",listOfRestaurant)
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   const fetchData = async () => {
     const data = await fetch(
@@ -22,8 +24,8 @@ const Body = () => {
     );
     const json = await data.json();
 
-   // console.log(json);
-  //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+    // console.log(json);
+    //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
     // //console.log(
     //   json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
     // );
@@ -65,8 +67,13 @@ const Body = () => {
           >
             Search
           </button>
+          <label>UserName</label>
+          <input
+            className="border border-black px-2 mx-2"
+            onChange={(e) => setUserName(e.target.value)}
+            value={loggedInUser}
+          />
         </div>
-
 
         <div className="flex flex-wrap">
           {filterlistOfRestaurant.map((restaurant) => (
