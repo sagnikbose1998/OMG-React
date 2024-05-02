@@ -5,9 +5,9 @@ const AboutUs = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">About Us</h1>
       <p className="mb-4">
-        Welcome to our food delivery service! At [Your App Name], we're
-        passionate about bringing you the best dining experience from the
-        comfort of your home.
+        Welcome to our food delivery service! At YumYumYay, we're passionate
+        about bringing you the best dining experience from the comfort of your
+        home.
       </p>
       <p className="mb-4">
         Our journey began with a simple idea: to make ordering food online as
@@ -26,8 +26,8 @@ const AboutUs = () => {
         back, relax, and let us handle the rest.
       </p>
       <p>
-        Thank you for choosing Foodella for your food delivery needs. We
-        can't wait to delight your taste buds!
+        Thank you for choosing YumYumYay for your food delivery needs. We can't
+        wait to delight your taste buds!
       </p>
     </div>
   );
