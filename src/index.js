@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import Header from "./components/Header";
-import Body from "./components/Body";
+import { Provider } from "react-redux";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import About from "./components/About";
+import Body from "./components/Body";
+import Cart from "./components/Cart";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
+import Header from "./components/Header";
 import RestaurantMenu from "./components/RestaurantMenu";
+import "./index.css";
 import UserContext from "./utils/UserContext";
-import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
-import Cart from "./components/Cart";
 
 const AppLayout = () => {
   const [userName, setUserName] = useState();
@@ -55,8 +55,8 @@ const appRouter = createBrowserRouter([
         element: <RestaurantMenu />,
       },
       {
-        path:"/cart",
-        element:<Cart />
+        path: "/cart",
+        element: <Cart />,
       },
     ],
     errorElement: <Error />,

@@ -1,43 +1,22 @@
-import RestaurantCard, { withCardUpdated } from "./RestaurantCard";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import RestaurantCard from "./RestaurantCard"; // Import RestaurantCard component
+import mockApiResponse from "../utils/mockData.json"// Import mock API response from file
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [filterlistOfRestaurant, setFilterListOfRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  const RestaurantCardUpdate = withCardUpdated(RestaurantCard);
-  //console.log("Body rendered",listOfRestaurant)
-
   useEffect(() => {
-    fetchData();
+    // Set the list of restaurants from the mock API response
+    setListOfRestaurant(mockApiResponse.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+    setFilterListOfRestaurant(mockApiResponse.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
   }, []);
 
   const { loggedInUser, setUserName } = useContext(UserContext);
-
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5830181&lng=88.4131218&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-
-    // console.log(json);
-    //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
-    // //console.log(
-    //   json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
-    // );
-    //setListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
-    //setFilterListOfRestaurant(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
-    setListOfRestaurant(
-      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
-    );
-    setFilterListOfRestaurant(
-      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
-    );
-  };
 
   const onlineStatus = useOnlineStatus();
   if (onlineStatus === false) return <h1>OOps! Come back ! You are offline</h1>;
@@ -81,10 +60,7 @@ const Body = () => {
               to={"/restaurants/" + restaurant.info.id}
               key={restaurant.info.id}
             >
-              {
-                /* restaurant.data.isOpen? <RestaurantCardUpdate resData={restaurant}/>:<RestaurantCard resData={restaurant} /> */
-                <RestaurantCard resData={restaurant} />
-              }
+              <RestaurantCard resData={restaurant} />
             </Link>
           ))}
         </div>
